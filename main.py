@@ -2,7 +2,7 @@ import pygame
 import random
 import time
 import configparser
-# from Klasy import Jablko
+from Klasy import Jablko
 
 FPS = 60
 WIELKOSC_KAFLA = 32
@@ -27,6 +27,12 @@ for i in range(wiersz):
 pygame.init()
 ekran = pygame.display.set_mode([SZEROKOSC_EKRANU,WYSOKOSC_EKRANU])
 zegar = pygame.time.Clock()
+
+#jablka
+jablko = Jablko()
+jablka = pygame.sprite.Group()
+jablka.add(jablko)
+
 czy_gra_dziala : bool = True
 while czy_gra_dziala:
     for event in pygame.event.get():
@@ -37,6 +43,9 @@ while czy_gra_dziala:
             czy_gra_dziala = False
     #rysowanie tla
     ekran.blit(tlo, (0, 0))
+    for jablko in jablka:
+        ekran.blit(jablko.obraz, jablko.rect)
+
     #czyszczenia ekranu
     pygame.display.flip()
     #ustawiamy nasze zegar na fps
