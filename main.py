@@ -25,10 +25,8 @@ for i in range(wiersz):
 
 #ustawienia
 pygame.init()
-
 ekran = pygame.display.set_mode([SZEROKOSC_EKRANU,WYSOKOSC_EKRANU])
 zegar = pygame.time.Clock()
-
 czy_gra_dziala : bool = True
 while czy_gra_dziala:
     for event in pygame.event.get():
