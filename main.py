@@ -4,10 +4,15 @@ import time
 import configparser
 from Klasy import Jablko
 
-FPS = 60
-WIELKOSC_KAFLA = 32
-SZEROKOSC_EKRANU = 800
-WYSOKOSC_EKRANU = 608
+configpath=("config.cfg")
+configSnake = configparser.ConfigParser()
+configSnake.read(configpath)
+
+FPS :int = int(configSnake['SETTINGS']['FPS'])
+WIELKOSC_KAFLA :int = int (configSnake['SETTINGS']['WIELKOSC_KAFLA'])
+SZEROKOSC_EKRANU :int = int (configSnake['SETTINGS']['SZEROKOSC_EKRANU'])
+WYSOKOSC_EKRANU :int = int (configSnake['SETTINGS']['WYSOKOSC_EKRANU'])
+
 
 wiersz = int(SZEROKOSC_EKRANU / WIELKOSC_KAFLA)
 kolumna = int(WYSOKOSC_EKRANU/WIELKOSC_KAFLA)
