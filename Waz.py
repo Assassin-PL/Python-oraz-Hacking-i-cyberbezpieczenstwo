@@ -22,5 +22,7 @@ class Waz(pygame.sprite.Sprite):
         #nasz obraz pomocniczy
         self.obraz = pygame.transform.rotate(self.orginalny_obraz , 0)
         #wspolrzedne glowy 
-        self.rect = self.obraz.get_rect(center=(12*WIELKOSC_KAFLA+16 , 9*WIELKOSC_KAFLA + 16))
+        self.rect = self.obraz.get_rect(
+            center=(12*WIELKOSC_KAFLA+16 , 9*WIELKOSC_KAFLA + 16)
+            )
          
