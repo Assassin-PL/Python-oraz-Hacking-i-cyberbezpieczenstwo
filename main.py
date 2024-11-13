@@ -44,8 +44,8 @@ pygame.time.set_timer(PORUSZ_WEZEM, 200)
 jablko = Jablko()
 jablka = pygame.sprite.Group()
 jablka.add(jablko)
-
 czy_gra_dziala : bool = True
+# Add logs to the game loop
 while czy_gra_dziala:
     for zdarzenie in pygame.event.get():
         if zdarzenie.type == pygame.KEYDOWN:
@@ -63,7 +63,22 @@ while czy_gra_dziala:
             waz.aktualizuj()
         elif zdarzenie.type == pygame.QUIT:
             czy_gra_dziala = False
-        #rysowanie tla
+    #rysowanie tla
+    ekran.blit(tlo, (0, 0))
+    ekran.blit(waz.obraz , waz.rect)
+    for jablko in jablka:
+        ekran.blit(jablko.obraz, jablko.rect)
+    #czyszczenia ekranu
+    pygame.display.flip()
+    #ustaw ekran.blit(tlo, (0, 0))
+    ekran.blit(waz.obraz , waz.rect)
+    for jablko in jablka:
+        ekran.blit(jablko.obraz, jablko.rect)
+    #czyszczenia ekranu
+    pygame.display.flip()
+    #ustawiamy nasze zegar na fps
+    zegar.tick(FPS)
+    #rysowanie tla
     ekran.blit(tlo, (0, 0))
     ekran.blit(waz.obraz , waz.rect)
     for jablko in jablka:
