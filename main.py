@@ -47,17 +47,27 @@ jablka.add(jablko)
 
 czy_gra_dziala : bool = True
 while czy_gra_dziala:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
+    for zdarzenie in pygame.event.get():
+        if zdarzenie.type == pygame.KEYDOWN:
+            if zdarzenie.key == pygame.K_ESCAPE:
                 czy_gra_dziala = False
-        elif event.type == pygame.QUIT:
+            if zdarzenie.key == pygame.K_w:
+                waz.zmien_kierunek(Kierunek.GORA)
+            if zdarzenie.key == pygame.K_s:
+                waz.zmien_kierunek(Kierunek.DOL)
+            if zdarzenie.key == pygame.K_d:
+                waz.zmien_kierunek(Kierunek.PRAWO)
+            if zdarzenie.key == pygame.K_a:
+                waz.zmien_kierunek(Kierunek.LEWO)
+        elif zdarzenie.type == PORUSZ_WEZEM:
+            waz.aktualizuj()
+        elif zdarzenie.type == pygame.QUIT:
             czy_gra_dziala = False
-    #rysowanie tla
+        #rysowanie tla
     ekran.blit(tlo, (0, 0))
+    ekran.blit(waz.obraz , waz.rect)
     for jablko in jablka:
         ekran.blit(jablko.obraz, jablko.rect)
-
     #czyszczenia ekranu
     pygame.display.flip()
     #ustawiamy nasze zegar na fps
