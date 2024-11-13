@@ -3,6 +3,9 @@ import random
 import time
 import configparser
 from Klasy import Jablko
+from Waz import Waz
+from Kierunek import Kierunek
+
 
 configpath=("config.cfg")
 configSnake = configparser.ConfigParser()
@@ -31,6 +34,11 @@ for i in range(wiersz):
 pygame.init()
 ekran = pygame.display.set_mode([SZEROKOSC_EKRANU,WYSOKOSC_EKRANU])
 zegar = pygame.time.Clock()
+
+#waz
+waz = Waz()
+PORUSZ_WEZEM = pygame.USEREVENT + 1
+pygame.time.set_timer(PORUSZ_WEZEM, 200)
 
 #jablka
 jablko = Jablko()
