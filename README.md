@@ -1,5 +1,5 @@
-# Snake.v1
-Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 8-10. Gra Snake
+# Arkanoid.v1
+Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 11-13. Gra Arkanoid
 
 ## Jak pobrać kod z GitHuba
 Jeśli chcesz pobrać kod z konkretnego brancha, wykonaj następujące kroki:
