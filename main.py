@@ -1,5 +1,6 @@
 import pygame
 from utlis import Config
+from platforma import Platforma
 
 #Klasa obslugujaca nasz plik konfiguracyjny
 config = Config()
@@ -23,6 +24,7 @@ print(f"FPS naszej gry wynosi: {FPS}")
 #glowna petla gry
 
 gra_dziala : bool = True
+platforma = Platforma()
 while gra_dziala:
     for zdarzenie in pygame.event.get():
         if zdarzenie.type == pygame.KEYDOWN:
@@ -30,8 +32,16 @@ while gra_dziala:
                 gra_dziala = False
         elif zdarzenie.type == pygame.QUIT:
             gra_dziala = False
+    #sterowanie platforma
+    keys=pygame.key.get_pressed()
+    if keys[pygame.K_a]:
+        platforma.ruszaj_platforma(-1)
+    if keys[pygame.K_d]:
+        platforma.ruszaj_platforma(1)
     #wyswietlamy tlo
     ekran.blit(obraz_tla, (0, 0))
+    #przemieszczanie platformy
+    ekran.blit(platforma.obraz, platforma.pozycja)
     pygame.display.flip()
     zegar.tick(FPS)
 

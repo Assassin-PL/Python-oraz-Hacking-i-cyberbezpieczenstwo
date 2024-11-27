@@ -5,10 +5,10 @@ from utlis import Config
 config = Config()
 ustawienia : str = "SETTINGS"
 sciezki : str = "PATHS"
-SZEROKOSC_EKRANU = config.get(ustawienia,"SZEROKOSC_EKRANU")
-WYSOKOSC_EKRANU = config.get(ustawienia, "WYSOKOSC_EKRANU")
+SZEROKOSC_EKRANU = int(config.get(ustawienia,"SZEROKOSC_EKRANU"))
+WYSOKOSC_EKRANU = int(config.get(ustawienia, "WYSOKOSC_EKRANU"))
 class Platforma(pygame.sprite.Sprite):
-    def __init__(self, x, y, szerokosc, wysokosc):
+    def __init__(self):
         super().__init__()
         self.config = Config()
         self.ustawienia : str = "SETTINGS"
