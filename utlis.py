@@ -33,3 +33,12 @@ class Config:
             return dict(self.__config.items(section))
         except configparser.NoSectionError:
             raise ValueError(f"Sekcja '{section}' nie istnieje w pliku konfiguracyjnym.")
+
+    def get_int(self, section: str, option: str) -> int:
+        """Zwraca wartość z określonej sekcji i opcji."""
+        try:
+            return self.__config.get(section, option)
+        except configparser.NoSectionError:
+            raise ValueError(f"Sekcja '{section}' nie istnieje w pliku konfiguracyjnym.")
+        except configparser.NoOptionError:
+            raise ValueError(f"Opcja '{option}' nie istnieje w sekcji '{section}'.")
