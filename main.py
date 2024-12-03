@@ -44,5 +44,6 @@ while gra_dziala:
     ekran.blit(platforma.obraz, platforma.pozycja)
     pygame.display.flip()
     zegar.tick(FPS)
+    print(platforma.pozycja.left)
 
 pygame.quit()
