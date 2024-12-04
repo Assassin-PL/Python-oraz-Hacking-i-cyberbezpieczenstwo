@@ -33,10 +33,10 @@ while gra_dziala:
         elif zdarzenie.type == pygame.QUIT:
             gra_dziala = False
     #sterowanie platforma
-    keys=pygame.key.get_pressed()
-    if keys[pygame.K_a]:
+    keys=pygame.key.get_pressed() 
+    if keys[pygame.K_a] and not platforma.pozycja.left < 0:
         platforma.ruszaj_platforma(-1)
-    if keys[pygame.K_d]:
+    if keys[pygame.K_d] and not platforma.pozycja.right > int(SZEROKOSC_EKRANU):
         platforma.ruszaj_platforma(1)
     #wyswietlamy tlo
     ekran.blit(obraz_tla, (0, 0))
