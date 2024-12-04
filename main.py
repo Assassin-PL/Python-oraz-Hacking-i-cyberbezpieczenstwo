@@ -1,7 +1,7 @@
 import pygame
 from utlis import Config
 from platforma import Platforma
-
+from Kulka import Kulka
 #Klasa obslugujaca nasz plik konfiguracyjny
 config = Config()
 ustawienia : str = "SETTINGS"
@@ -25,6 +25,7 @@ print(f"FPS naszej gry wynosi: {FPS}")
 
 gra_dziala : bool = True
 platforma = Platforma()
+kulka = Kulka()
 while gra_dziala:
     for zdarzenie in pygame.event.get():
         if zdarzenie.type == pygame.KEYDOWN:
@@ -38,10 +39,12 @@ while gra_dziala:
         platforma.ruszaj_platforma(-1)
     if keys[pygame.K_d] and not platforma.pozycja.right > int(SZEROKOSC_EKRANU):
         platforma.ruszaj_platforma(1)
+    kulka.aktualizuj(platforma)
     #wyswietlamy tlo
     ekran.blit(obraz_tla, (0, 0))
     #przemieszczanie platformy
     ekran.blit(platforma.obraz, platforma.pozycja)
+    ekran.blit(kulka.obraz, kulka.pozycja)
     pygame.display.flip()
     zegar.tick(FPS)
     print(platforma.pozycja.left)

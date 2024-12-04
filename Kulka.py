@@ -27,8 +27,9 @@ class Kulka(pygame.sprite.Sprite):
         self.wektor = vec(0, -10)
         self.kat_nachylenia = random.randrange(-30, 30)
         self.wektor.rotate_ip(self.kat_nachylenia)
+        self.przegrana = False
     
-    def aktualizuj(self):
+    def aktualizuj(self, platforma):
         self.wspolrzedne += self.wektor
         self.pozycja.center = self.wspolrzedne
     
