@@ -18,6 +18,18 @@ print(f"WYSOKOSC_EKRANU naszego ekranu wynosi: {WYSOKOSC_EKRANU} pixseli")
 ekran = pygame.display.set_mode([int(SZEROKOSC_EKRANU), int(WYSOKOSC_EKRANU)])
 zegar = pygame.time.Clock()
 
+#do poziomow: 
+#poziomy gry
+poziom1 = [
+    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+
 obraz_tla = pygame.image.load(config.get(sciezki, "tlo"))
 FPS : int = int( config.get(ustawienia, "FPS") )
 print(f"FPS naszej gry wynosi: {FPS}")
