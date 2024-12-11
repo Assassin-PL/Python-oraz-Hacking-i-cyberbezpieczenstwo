@@ -2,6 +2,7 @@ import pygame
 from utlis import Config
 from platforma import Platforma
 from Kulka import Kulka
+
 #Klasa obslugujaca nasz plik konfiguracyjny
 config = Config()
 ustawienia : str = "SETTINGS"
@@ -14,9 +15,14 @@ SZEROKOSC_EKRANU = config.get(ustawienia,"SZEROKOSC_EKRANU")
 print(f"Szerokosc naszego ekranu wynosi: {SZEROKOSC_EKRANU} pixseli")
 WYSOKOSC_EKRANU = config.get(ustawienia, "WYSOKOSC_EKRANU")
 print(f"WYSOKOSC_EKRANU naszego ekranu wynosi: {WYSOKOSC_EKRANU} pixseli")
+zycie : int = 3
+
+pygame.init()
+pygame.font.init()
 
 ekran = pygame.display.set_mode([int(SZEROKOSC_EKRANU), int(WYSOKOSC_EKRANU)])
 zegar = pygame.time.Clock()
+czcionka = pygame.font.SysFont('Comic Sans MS', 24)
 
 #do poziomow: 
 #poziomy gry
@@ -57,6 +63,9 @@ while gra_dziala:
     #przemieszczanie platformy
     ekran.blit(platforma.obraz, platforma.pozycja)
     ekran.blit(kulka.obraz, kulka.pozycja)
+    #zrobienie tekstu
+    tekst = czcionka.render(f"Zycie: {zycie}", False, (255, 0, 255))
+    ekran.blit(tekst, (16, 16))
     pygame.display.flip()
     zegar.tick(FPS)
     print(platforma.pozycja.left)
