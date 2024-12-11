@@ -94,12 +94,25 @@ while gra_dziala:
         platforma.ruszaj_platforma(-1)
     if keys[pygame.K_d] and not platforma.pozycja.right > int(SZEROKOSC_EKRANU):
         platforma.ruszaj_platforma(1)
-    kulka.aktualizuj(platforma)
+    
+    if len(klocki.sprites()) == 0:
+        Poziom += 1
+        if Poziom >= 3:
+            break
+        kulka.zresetujpozycje()
+        platforma.zresetujobraz()
+        dodaj_klocki()
+    
+    kulka.aktualizuj(platforma, klocki)
+    klocki.update()
+    platforma.aktualizuj()
     #wyswietlamy tlo
     ekran.blit(obraz_tla, (0, 0))
     #przemieszczanie platformy
     ekran.blit(platforma.obraz, platforma.pozycja)
     ekran.blit(kulka.obraz, kulka.pozycja)
+    for brick in klocki:
+        ekran.blit(brick.obraz, brick.pozycja)
     #zrobienie tekstu
     tekst = czcionka.render(f"Zycie: {zycie}", False, (255, 0, 255))
     ekran.blit(tekst, (16, 16))

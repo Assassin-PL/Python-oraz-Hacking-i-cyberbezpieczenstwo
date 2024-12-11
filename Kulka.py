@@ -18,7 +18,7 @@ class Kulka(pygame.sprite.Sprite):
         self.sciezki : str = "PATHS"
         self.obraz = pygame.image.load(self.config.get(self.sciezki, "pilka")) 
         self.zresetujpozycje()
-        self.u = 16
+        self.r = 16
         self.przegrana = False
         
     def zresetujpozycje(self):
@@ -57,8 +57,8 @@ class Kulka(pygame.sprite.Sprite):
                 break
     
     def kolizja_z_klockami(self,kulka,klocek):
-        dystans_x = abs(kulka.pozycja.centrex - klocek.pozycja.centrex) - klocek.pozycja.w /2
-        dystans_y = abs(kulka.pozycja.centrey - klocek.pozycja.centrey) - klocek.pozycja.h /2
+        dystans_x = abs(kulka.pozycja.centerx - klocek.pozycja.centerx) - klocek.pozycja.w /2
+        dystans_y = abs(kulka.pozycja.centery - klocek.pozycja.centery) - klocek.pozycja.h /2
         if dystans_x < kulka.r and dystans_y < kulka.r:
             if dystans_x < dystans_y:
                 kulka.wektor.y *= -1
