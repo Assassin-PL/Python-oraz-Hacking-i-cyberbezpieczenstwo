@@ -2,6 +2,7 @@ import pygame
 from utlis import Config
 from platforma import Platforma
 from Kulka import Kulka
+from Klocek import Klocek
 
 #Klasa obslugujaca nasz plik konfiguracyjny
 config = Config()
@@ -16,7 +17,7 @@ print(f"Szerokosc naszego ekranu wynosi: {SZEROKOSC_EKRANU} pixseli")
 WYSOKOSC_EKRANU = config.get(ustawienia, "WYSOKOSC_EKRANU")
 print(f"WYSOKOSC_EKRANU naszego ekranu wynosi: {WYSOKOSC_EKRANU} pixseli")
 zycie : int = 3
-
+Poziom = 0
 pygame.init()
 pygame.font.init()
 
@@ -34,6 +35,25 @@ poziom1 = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+
+poziom2 = [
+[0, 0, 1, 2, 3, 3, 2, 1, 0, 0],
+[0, 1, 1, 1, 2, 2, 1, 1, 1, 0],
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+[0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+[0, 0, 2, 0, 0, 0, 0, 2, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 2, 0, 2, 0, 0, 2, 0, 2, 0]
+]
+poziom3 = [
+[2, 3, 2, 2, 2, 2, 2, 2, 3, 2],
+[2, 1, 3, 1, 1, 1, 1, 3, 1, 2],
+[2, 3, 1, 3, 1, 1, 3, 1, 3, 2],
+[3, 2, 2, 2, 3, 3, 2, 2, 2, 3],
+[0, 0, 2, 2, 3, 3, 2, 2, 0, 0],
+[0, 0, 2, 0, 3, 3, 0, 2, 0, 0],
+[0, 0, 3, 0, 3, 3, 0, 3, 0, 0]
 ]
 
 obraz_tla = pygame.image.load(config.get(sciezki, "tlo"))

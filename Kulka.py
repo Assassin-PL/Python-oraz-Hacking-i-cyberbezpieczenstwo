@@ -52,7 +52,9 @@ class Kulka(pygame.sprite.Sprite):
         
         for klocek in klocki:
             #nastapila kolizja
-            pass
+            if self.kolizja_z_klockami(self, klocek):
+                klocek.uderzenie()
+                break
     
     def kolizja_z_klockami(self,kulka,klocek):
         dystans_x = abs(kulka.pozycja.centrex - klocek.pozycja.centrex) - klocek.pozycja.w /2
