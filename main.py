@@ -56,6 +56,23 @@ poziom3 = [
 [0, 0, 3, 0, 3, 3, 0, 3, 0, 0]
 ]
 
+klocki = pygame.sprite.Group()
+def dodaj_klocki():
+    wczytany_poziom = None
+    if Poziom == 0:
+        wczytany_poziom = poziom1
+    if Poziom == 1:
+        wczytany_poziom = poziom2
+    if Poziom == 2:
+        wczytany_poziom = poziom3
+    
+    for i in range (10):
+        for j in range (7):
+            if wczytany_poziom[j][i] != 0:
+                klocek = Klocek(32 + i*96, 32 + j*48, wczytany_poziom[j][i])
+                klocki.add(klocek)
+    
+dodaj_klocki()
 obraz_tla = pygame.image.load(config.get(sciezki, "tlo"))
 FPS : int = int( config.get(ustawienia, "FPS") )
 print(f"FPS naszej gry wynosi: {FPS}")
