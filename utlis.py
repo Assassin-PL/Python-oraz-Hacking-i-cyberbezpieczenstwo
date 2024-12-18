@@ -58,7 +58,7 @@ class Stack():
             self.stack.remove(self.stack[-1])
             return buffor            
     
-    def peak(self):
+    def peek(self):
         if not self.is_empty():
             return self.stack[-1]
     
@@ -67,3 +67,25 @@ class Stack():
     
     def size(self):
         return len(self.stack)
+    
+    def pokaz_elemnty(self):
+        return print(self.stack)
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def is_empty(self):
+        return len(self.queue) == 0
+    def enqueue(self, item):
+         self.queue.append(item)   
+    def dequeue(self):
+        buffor = None
+        if not self.is_empty():
+            buffor = self.queue[0]
+            self.queue.remove(self.queue[0])
+            return buffor   
+    def peek(self):
+        if not self.is_empty():
+            return self.queue[0]   
+    def pokaz_elemnty(self):
+        return print(self.queue)
