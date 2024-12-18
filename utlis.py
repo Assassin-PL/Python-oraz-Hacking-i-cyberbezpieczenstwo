@@ -89,3 +89,5 @@ class Queue():
             return self.queue[0]   
     def pokaz_elemnty(self):
         return print(self.queue)
+    def size(self):
+        return len(self.queue)
