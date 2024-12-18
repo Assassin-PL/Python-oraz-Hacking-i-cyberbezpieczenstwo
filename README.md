@@ -1,5 +1,5 @@
-# Arkanoid.v1
-Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 11-13. Gra Arkanoid
+# Zaawansowwane Struktury Dancyh
+Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 14. Nauka struktur danych i jak komputer przechowuje obiekty w pamieci
 
 ## Jak pobrać kod z GitHuba
 Jeśli chcesz pobrać kod z konkretnego brancha, wykonaj następujące kroki:
