@@ -42,3 +42,28 @@ class Config:
             raise ValueError(f"Sekcja '{section}' nie istnieje w pliku konfiguracyjnym.")
         except configparser.NoOptionError:
             raise ValueError(f"Opcja '{option}' nie istnieje w sekcji '{section}'.")
+#nowe klasy
+class Stack():
+    def __init__(self):
+        self.stack = []
+    
+    def push(self, item):
+        self.stack.append(item)
+    
+    def pop(self):
+        buffor = None
+        if not self.is_empty():
+            # return self.stack.pop()
+            buffor = self.stack[-1]
+            self.stack.remove(self.stack[-1])
+            return buffor            
+    
+    def peak(self):
+        if not self.is_empty():
+            return self.stack[-1]
+    
+    def is_empty(self) -> bool:
+        return len(self.stack) == 0
+    
+    def size(self):
+        return len(self.stack)
