@@ -1,5 +1,5 @@
-# Arkanoid.v1
-Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 15. Budowa i analiza algorytmóws
+# Budowa i analiza algorytmów
+Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 15. Budowa i analiza algorytmów
 
 ## Jak pobrać kod z GitHuba
 Jeśli chcesz pobrać kod z konkretnego brancha, wykonaj następujące kroki:
