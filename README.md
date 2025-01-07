@@ -1,5 +1,5 @@
 # Arkanoid.v1
-Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 11-13. Gra Arkanoid
+Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 15. Budowa i analiza algorytmóws
 
 ## Jak pobrać kod z GitHuba
 Jeśli chcesz pobrać kod z konkretnego brancha, wykonaj następujące kroki:

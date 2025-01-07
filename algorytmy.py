@@ -1,0 +1,1 @@
+# Tu beda algorytmy na operacje na zbiorach danych
