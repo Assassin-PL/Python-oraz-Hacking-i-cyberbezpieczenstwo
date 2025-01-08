@@ -1,6 +1,5 @@
 import configparser
 
-
 class Config:
     __config_file = "config.cfg"  # Prywatny i niezmienny atrybut
     
