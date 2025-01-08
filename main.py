@@ -1,5 +1,6 @@
 from utlis import Config
 
+
 def wyswietl(slownik: dict) -> None:
     """Funkcja wyswietlajaca slownik w formie tekstu."""
     for klucz, wartosc  in slownik.items():
@@ -12,6 +13,14 @@ def wyswietl(slownik: dict) -> None:
 config = Config()
 
 slownik : dict = config.get_dict()
-
+print("slownik przed dodaniem sekcji")
 wyswietl(slownik)
+slownik["Lekcja"] = {"Dzien": "Poniedzialek", "Godzina": "8:00", "Przedmiot": "Matematyka"}
+print("slownik po dodaniu sekcji")
+wyswietl(slownik)
+print("slownik po usunieciu sekcji")
+del slownik["INFORMACJE"]
+wyswietl(slownik)
+config.add_section("Lekcja", slownik["Lekcja"])
+config.remove_section("INFORMACJE")
 
