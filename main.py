@@ -1,26 +1,17 @@
 from utlis import Config
 
-
-def wyswietl(slownik: dict) -> None:
-    """Funkcja wyswietlajaca slownik w formie tekstu."""
-    for klucz, wartosc  in slownik.items():
-        print(f"Naszym kluczem jest {klucz} i przechowuje wartosc : {wartosc}")
-        print(f"ale {wartosc} to tez jest slownik wiec mozemy go wyprintowac")
-        if(isinstance(wartosc, dict)):
-            for klucz2, wartosc2 in wartosc.items():
-                print(f"klucz: {klucz2} wartosc: {wartosc2}")
-
 config = Config()
 
-slownik : dict = config.get_dict()
-print("slownik przed dodaniem sekcji")
-wyswietl(slownik)
-slownik["Lekcja"] = {"Dzien": "Poniedzialek", "Godzina": "8:00", "Przedmiot": "Matematyka"}
-print("slownik po dodaniu sekcji")
-wyswietl(slownik)
-print("slownik po usunieciu sekcji")
-del slownik["INFORMACJE"]
-wyswietl(slownik)
-config.add_section("Lekcja", slownik["Lekcja"])
-config.remove_section("INFORMACJE")
+sekcje = []
 
+for keys, values in config.get_dict().items():
+    sekcje.append(keys)
+
+print(sekcje)
+
+# Pobieranie koloru tła jako krotki
+try:
+    kolor_tla = config.get_tuple('UI', 'KOLOR_TLA', as_tuple=True)
+    print(f"Kolor Tła: {kolor_tla} (typ: {type(kolor_tla)})")
+except (ValueError, TypeError) as e:
+    print(e)

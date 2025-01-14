@@ -1,4 +1,7 @@
 import configparser
+import json
+import os
+from typing import Any, Dict, Optional
 
 class Config:
     __config_file = "config.cfg"  # Prywatny i niezmienny atrybut
@@ -34,6 +37,33 @@ class Config:
             raise ValueError(f"Sekcja '{section}' nie istnieje w pliku konfiguracyjnym.")
         except configparser.NoOptionError:
             raise ValueError(f"Opcja '{option}' nie istnieje w sekcji '{section}'.")
+    
+    def get_tuple(self, section: str, option: str, as_tuple: bool = False) -> tuple:
+        """Zwraca wartość z określonej sekcji i opcji.
+        
+        Jeśli `as_tuple` jest True, próbuje przekonwertować wartość na krotkę.
+        
+        :param section: Nazwa sekcji.
+        :param option: Nazwa opcji.
+        :param as_tuple: Czy zwrócić wartość jako krotkę.
+        :return: Wartość jako string lub krotka.
+        :raises ValueError: Jeśli sekcja lub opcja nie istnieje.
+        :raises TypeError: Jeśli konwersja na krotkę się nie powiodła.
+        """
+        try:
+            value = self.__config.get(section, option)
+            if as_tuple:
+                # Zakładamy, że krotki są zapisane jako "200,200,200"
+                try:
+                    return tuple(int(x.strip()) for x in value.split(','))
+                except ValueError:
+                    raise TypeError(f"Wartość opcji '{option}' w sekcji '{section}' nie może zostać przekonwertowana na krotkę.")
+            return value
+        except configparser.NoSectionError:
+            raise ValueError(f"Sekcja '{section}' nie istnieje w pliku konfiguracyjnym.")
+        except configparser.NoOptionError:
+            raise ValueError(f"Opcja '{option}' nie istnieje w sekcji '{section}'.")
+
 
     def get_all_options(self, section: str) -> dict:
         """Zwraca wszystkie opcje w danej sekcji jako słownik."""
@@ -156,3 +186,230 @@ class Config:
                 self.__config.write(file)
         except Exception as e:
             raise Exception(f"Wystąpił problem podczas zapisywania pliku konfiguracyjnego: {e}")
+class DataManager:
+    """
+    Klasa DataManager zarządza plikami JSON, umożliwiając odczyt, zapis,
+    dodawanie, aktualizację oraz usuwanie sekcji i kluczy w pliku konfiguracyjnym.
+    """
+
+    def __init__(self, file_path: Optional[str] = None, template: Optional[Dict[str, Any]] = None) -> None:
+        """
+        Inicjalizuje DataManager z określonym plikiem JSON lub tworzy nowy plik na podstawie szablonu.
+
+        :param file_path: (Opcjonalnie) Ścieżka do pliku JSON. Jeśli nie podano, plik zostanie utworzony na podstawie szablonu.
+        :param template: (Opcjonalnie) Słownik zawierający dane do utworzenia nowego pliku JSON.
+        :raises ValueError: Jeśli plik nie istnieje, nie podano szablonu podczas tworzenia nowego pliku.
+        """
+        self.file_path = file_path or "save.json"
+        self.data = {}
+        self.template = template
+
+        if os.path.exists(self.file_path):
+            self._load()
+        else:
+            if self.template:
+                self.data = self.template
+                self._save()
+            else:
+                # Tworzenie pustego pliku JSON, jeśli nie dostarczono szablonu
+                with open(self.file_path, 'w') as file:
+                    json.dump({}, file, indent=4)
+
+    def _load(self) -> None:
+        """
+        Wczytuje dane z pliku JSON.
+        """
+        try:
+            with open(self.file_path, 'r') as file:
+                self.data = json.load(file)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Plik '{self.file_path}' zawiera nieprawidłowy JSON: {e}")
+        except Exception as e:
+            raise Exception(f"Wystąpił problem podczas wczytywania pliku '{self.file_path}': {e}")
+
+    def _save(self) -> None:
+        """
+        Zapisuje aktualny stan danych do pliku JSON.
+        """
+        try:
+            with open(self.file_path, 'w') as file:
+                json.dump(self.data, file, indent=4)
+        except Exception as e:
+            raise Exception(f"Wystąpił problem podczas zapisywania pliku '{self.file_path}': {e}")
+
+    def get_dict(self) -> Dict[str, Any]:
+        """
+        Zwraca cały plik konfiguracyjny jako słownik.
+
+        :return: Słownik z danymi z pliku JSON.
+        """
+        return self.data.copy()
+
+    def get(self, section: str, key: str) -> Any:
+        """
+        Zwraca wartość z określonej sekcji i klucza.
+
+        :param section: Nazwa sekcji.
+        :param key: Nazwa klucza.
+        :return: Wartość przypisana do klucza.
+        :raises ValueError: Jeśli sekcja lub klucz nie istnieje.
+        """
+        try:
+            return self.data[section][key]
+        except KeyError as e:
+            missing = e.args[0]
+            if missing == section:
+                raise ValueError(f"Sekcja '{section}' nie istnieje w pliku konfiguracyjnym.")
+            else:
+                raise ValueError(f"Klucz '{key}' nie istnieje w sekcji '{section}'.")
+
+    def get_all_options(self, section: str) -> Dict[str, Any]:
+        """
+        Zwraca wszystkie opcje w danej sekcji jako słownik.
+
+        :param section: Nazwa sekcji.
+        :return: Słownik z kluczami i wartościami w sekcji.
+        :raises ValueError: Jeśli sekcja nie istnieje.
+        """
+        try:
+            return self.data[section].copy()
+        except KeyError:
+            raise ValueError(f"Sekcja '{section}' nie istnieje w pliku konfiguracyjnym.")
+
+    def get_str(self, section: str, key: str) -> str:
+        """
+        Zwraca wartość jako string z określonej sekcji i klucza.
+
+        :param section: Nazwa sekcji.
+        :param key: Nazwa klucza.
+        :return: Wartość jako string.
+        :raises ValueError, TypeError: Jeśli sekcja lub klucz nie istnieje lub wartość nie jest stringiem.
+        """
+        value = self.get(section, key)
+        if not isinstance(value, str):
+            raise TypeError(f"Klucz '{key}' w sekcji '{section}' nie jest typu string.")
+        return value
+
+    def get_int(self, section: str, key: str) -> int:
+        """
+        Zwraca wartość jako integer z określonej sekcji i klucza.
+
+        :param section: Nazwa sekcji.
+        :param key: Nazwa klucza.
+        :return: Wartość jako integer.
+        :raises ValueError, TypeError: Jeśli sekcja lub klucz nie istnieje lub wartość nie jest integerem.
+        """
+        value = self.get(section, key)
+        if isinstance(value, int):
+            return value
+        try:
+            return int(value)
+        except (ValueError, TypeError):
+            raise TypeError(f"Klucz '{key}' w sekcji '{section}' nie jest typu integer.")
+
+    def get_float(self, section: str, key: str) -> float:
+        """
+        Zwraca wartość jako float z określonej sekcji i klucza.
+
+        :param section: Nazwa sekcji.
+        :param key: Nazwa klucza.
+        :return: Wartość jako float.
+        :raises ValueError, TypeError: Jeśli sekcja lub klucz nie istnieje lub wartość nie jest floatem.
+        """
+        value = self.get(section, key)
+        if isinstance(value, float):
+            return value
+        try:
+            return float(value)
+        except (ValueError, TypeError):
+            raise TypeError(f"Klucz '{key}' w sekcji '{section}' nie jest typu float.")
+
+    def get_bool(self, section: str, key: str) -> bool:
+        """
+        Zwraca wartość jako boolean z określonej sekcji i klucza.
+
+        :param section: Nazwa sekcji.
+        :param key: Nazwa klucza.
+        :return: Wartość jako boolean.
+        :raises ValueError, TypeError: Jeśli sekcja lub klucz nie istnieje lub wartość nie jest booleanem.
+        """
+        value = self.get(section, key)
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            if value.lower() in ('true', 'yes', '1'):
+                return True
+            elif value.lower() in ('false', 'no', '0'):
+                return False
+        raise TypeError(f"Klucz '{key}' w sekcji '{section}' nie jest typu boolean.")
+
+    def add_section(self, section: str, options: Dict[str, Any] = None) -> None:
+        """
+        Dodaje nową sekcję do pliku konfiguracyjnego.
+
+        :param section: Nazwa nowej sekcji.
+        :param options: Opcjonalny słownik z kluczami i wartościami do dodania w sekcji.
+        :raises ValueError: Jeśli sekcja już istnieje.
+        """
+        if section in self.data:
+            raise ValueError(f"Sekcja '{section}' już istnieje.")
+        self.data[section] = {}
+        if options:
+            for key, value in options.items():
+                self.data[section][key] = value
+        self._save()
+
+    def update_section(self, section: str, options: Dict[str, Any]) -> None:
+        """
+        Aktualizuje istniejącą sekcję z nowymi opcjami. Nadpisuje istniejące klucze.
+
+        :param section: Nazwa sekcji do aktualizacji.
+        :param options: Słownik z kluczami i wartościami do aktualizacji.
+        :raises ValueError: Jeśli sekcja nie istnieje.
+        """
+        if section not in self.data:
+            raise ValueError(f"Sekcja '{section}' nie istnieje.")
+        for key, value in options.items():
+            self.data[section][key] = value
+        self._save()
+
+    def add_or_update_key(self, section: str, key: str, value: Any) -> None:
+        """
+        Dodaje nowy klucz do sekcji lub aktualizuje wartość istniejącego klucza.
+        Jeśli sekcja nie istnieje, jest tworzona.
+
+        :param section: Nazwa sekcji.
+        :param key: Nazwa klucza do dodania lub aktualizacji.
+        :param value: Nowa wartość klucza.
+        """
+        if section not in self.data:
+            self.data[section] = {}
+        self.data[section][key] = value
+        self._save()
+
+    def remove_section(self, section: str) -> None:
+        """
+        Usuwa sekcję z pliku konfiguracyjnego.
+
+        :param section: Nazwa sekcji do usunięcia.
+        :raises ValueError: Jeśli sekcja nie istnieje.
+        """
+        if section not in self.data:
+            raise ValueError(f"Sekcja '{section}' nie istnieje.")
+        del self.data[section]
+        self._save()
+
+    def remove_key(self, section: str, key: str) -> None:
+        """
+        Usuwa klucz z sekcji.
+
+        :param section: Nazwa sekcji.
+        :param key: Nazwa klucza do usunięcia.
+        :raises ValueError: Jeśli sekcja lub klucz nie istnieje.
+        """
+        if section not in self.data:
+            raise ValueError(f"Sekcja '{section}' nie istnieje.")
+        if key not in self.data[section]:
+            raise ValueError(f"Klucz '{key}' nie istnieje w sekcji '{section}'.")
+        del self.data[section][key]
+        self._save()
