@@ -1,7 +1,46 @@
 import configparser
 import json
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, List, Tuple
+
+def dict_marger(dict_list: List[Dict[str, Dict[str, Any]]]) -> Dict[str, Dict[str, Any]]:
+    """
+    Łączy listę słowników w jeden duży słownik.
+
+    :param dict_list: Lista słowników, gdzie każdy słownik ma jedną sekcję.
+                      Przykład: [{"Database": {...}}, {"API": {...}}]
+    :return: Jeden słownik łączący wszystkie sekcje.
+             Przykład: {"Database": {...}, "API": {...}}
+    :raises ValueError: Jeśli w liście znajdują się duplikaty sekcji.
+    """
+    merged_dict = {}
+    for d in dict_list:
+        if not isinstance(d, dict):
+            raise TypeError(f"Oczekiwano słownika, a otrzymano {type(d)}.")
+        for key, value in d.items():
+            if key in merged_dict:
+                raise ValueError(f"Duplikat sekcji '{key}' znaleziony.")
+            merged_dict[key] = value
+    return merged_dict
+
+def dict_splitter(merged_dict: Dict[str, Dict[str, Any]]) -> List[Dict[str, Dict[str, Any]]]:
+    """
+    Rozdziela duży słownik na listę mniejszych słowników, każdy z jedną sekcją.
+
+    :param merged_dict: Duży słownik z wieloma sekcjami.
+                        Przykład: {"Database": {...}, "API": {...}}
+    :return: Lista mniejszych słowników, każdy zawiera jedną sekcję.
+             Przykład: [{"Database": {...}}, {"API": {...}}]
+    :raises TypeError: Jeśli `merged_dict` nie jest słownikiem.
+    """
+    if not isinstance(merged_dict, dict):
+        raise TypeError(f"Oczekiwano słownika, a otrzymano {type(merged_dict)}.")
+
+    split_list = []
+    for key, value in merged_dict.items():
+        split_list.append({key: value})
+    return split_list
+
 
 class Config:
     __config_file = "config.cfg"  # Prywatny i niezmienny atrybut
