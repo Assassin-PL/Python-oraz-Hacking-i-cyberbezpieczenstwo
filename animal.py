@@ -3,9 +3,9 @@ from utlis import Config
 class Tamagotchi:
     def __init__(self):
         config = Config()
-        self.poziom_glodu = float(config.get_int
+        self.poziom_glodu = float(config.get_float
                                   ('ANIMAL_DEFAULT_SETTINGS', 'GLOD'))
-        self.poziom_szczescia = float(config.get_int
+        self.poziom_szczescia = float(config.get_float
                                       ('ANIMAL_DEFAULT_SETTINGS', 'SZCZESCIE'))
 
     def nakarm(self):

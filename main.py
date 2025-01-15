@@ -27,6 +27,9 @@ ekran = pygame.display.set_mode((SZEROKOSC, WYSOKOSC))
 zegar = pygame.time.Clock()
 pygame.display.set_caption(config.get_str('SETTINGS', 'NAZWA_GRY'))
 tamagotchi = Tamagotchi()
+#CZCIONKA
+CZCIONKA = pygame.font.Font("COMIC SANS", 20)
+
 # print(DataManager().data['wiek']) do przeczytania danej z pliku
 
 # Glowna petla naszej gry
@@ -39,8 +42,14 @@ while not koniec_gry:
                 koniec_gry = True
         elif zdarzenie.type == pygame.QUIT:
             koniec_gry = True
+        elif zdarzenie == pygame.MOUSEBUTTONDOWN:
+            tamagotchi.nakarm()
+            tamagotchi.pobaw_sie()
+    tamagotchi.aktualizuj()
     ekran.fill(kolor_tla)
-    
+    #INTERFEJS
+    ##szczescie
+    print(f"Poziom glodu: {tamagotchi.poziom_glodu}")
     pygame.display.flip()
     zegar.tick(30)
     
