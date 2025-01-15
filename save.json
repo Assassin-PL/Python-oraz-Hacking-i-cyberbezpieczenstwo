@@ -1,0 +1,14 @@
+{
+    "zwierzaki": {
+        "pies": "owczarek",
+        "kot": "syjamski",
+        "pochodzenie": {
+            "kraj": "Polska",
+            "miasto": "Warszawa"
+        }
+    },
+    "wiek": {
+        "mlodszy": 5,
+        "starszy": 10
+    }
+}

@@ -1,8 +1,9 @@
-from utlis import Config
+from utlis import Config, DataManager
+import pygame
 
 config = Config()
-
 sekcje = []
+dane = DataManager()
 
 for keys, values in config.get_dict().items():
     sekcje.append(keys)
@@ -15,3 +16,7 @@ try:
     print(f"Kolor Tła: {kolor_tla} (typ: {type(kolor_tla)})")
 except (ValueError, TypeError) as e:
     print(e)
+    
+# Start naszej gry i jej inicjalizacja
+pygame.display.init()
+
