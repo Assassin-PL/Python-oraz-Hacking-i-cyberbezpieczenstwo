@@ -1,5 +1,6 @@
 from utlis import Config, DataManager
 import pygame
+from animal import Tamagotchi
 
 config = Config()
 sekcje = []
@@ -25,7 +26,7 @@ WYSOKOSC  = int(config.get_int('SETTINGS', 'WYSOKOSC'))
 ekran = pygame.display.set_mode((SZEROKOSC, WYSOKOSC))
 zegar = pygame.time.Clock()
 pygame.display.set_caption(config.get_str('SETTINGS', 'NAZWA_GRY'))
-
+tamagotchi = Tamagotchi()
 # print(DataManager().data['wiek']) do przeczytania danej z pliku
 
 # Glowna petla naszej gry
