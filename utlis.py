@@ -425,7 +425,16 @@ class DataManager:
             self.data[section] = {}
         self.data[section][key] = value
         self._save()
-
+        
+    def add_data(self, data: Dict[str, Any]) -> None:
+        if not isinstance(data, dict):
+            raise TypeError("Expected a dictionary")
+        if self.data:
+            self.data.update(data)
+        else:
+            self.data = data
+        self._save()
+        
     def remove_section(self, section: str) -> None:
         """
         Usuwa sekcję z pliku konfiguracyjnego.
