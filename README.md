@@ -1,6 +1,6 @@
-# Tamagotchi
+# JSON
 
-Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 16. Tamagotchi
+Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 19. Metody List
 
 ## Jak pobrać kod z GitHuba
 
