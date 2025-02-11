@@ -112,3 +112,5 @@ for i in range(len(lista1)):
 # 10 Wyświetl obie listy
 print("Lista 1 po dodaniu 1: ", lista1)
 print("Lista 2 po odjęciu 1: ", list2)
+
+print(lista1.count(lista1[0]))
