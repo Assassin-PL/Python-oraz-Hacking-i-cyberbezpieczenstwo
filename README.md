@@ -1,6 +1,6 @@
-# JSON
+# Inne struktury danych
 
-Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 19. Metody List
+Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 20. Inne struktury danych
 
 ## Jak pobrać kod z GitHuba
 
