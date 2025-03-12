@@ -1,5 +1,5 @@
 from fpdf import FPDF
-
+#wstawilem komentarz
 pdf = FPDF()
 pdf.add_page()
 pdf.add_font("DejaVu", style = "", fname = "DejaVuSansCondensed.ttf", uni = True)
