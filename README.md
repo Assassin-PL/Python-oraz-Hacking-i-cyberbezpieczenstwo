@@ -1,7 +1,6 @@
 # Inne struktury danych
 
-Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 20. Inne struktury danych
-
+Repozytorium do zajęć z Python oraz Hacking i cyberbezpieczeństwo Lekcja 23. Numpy
 ## Jak pobrać kod z GitHuba
 
 Jeśli chcesz pobrać kod z konkretnego brancha, wykonaj następujące kroki:
