@@ -1,4 +1,5 @@
 import numpy as np;
+from numpy import random
 
 def print_arr():
     arr = np.array([[1, 2, 3], [1, 2, 3], [1, 2, 3]])
@@ -51,7 +52,7 @@ def generate():
     print(f"tablica z losowymi liczbami: \n {arr}")
 
 def get_random_items(arr):
-    return np.random.choice(arr, size=(3, 3))
+    return random.choice(arr)
 arr = print_arr()
 shapeShiffter(arr)
 data_format()
